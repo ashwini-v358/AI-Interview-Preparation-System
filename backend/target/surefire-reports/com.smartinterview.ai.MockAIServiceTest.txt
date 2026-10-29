@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.smartinterview.ai.MockAIServiceTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.145 s -- in com.smartinterview.ai.MockAIServiceTest

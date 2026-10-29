@@ -1,0 +1,17 @@
+com\smartinterview\ai\FallbackAIServiceTest.class
+com\smartinterview\ai\GeminiInterviewQuestionGenerationTest.class
+com\smartinterview\repository\EntityRepositoryTests.class
+com\smartinterview\ai\GeminiProviderInterviewFlowTest.class
+com\smartinterview\interview\InterviewEvolutionControllerTest$Result.class
+com\smartinterview\preparation\PreparationPlanControllerTest.class
+com\smartinterview\controller\ResumeControllerTest.class
+com\smartinterview\skillgap\SkillGapAnalysisControllerTest.class
+com\smartinterview\controller\AuthControllerTest.class
+com\smartinterview\ai\GeminiProviderInterviewFlowTest$CandidateSource.class
+com\smartinterview\ai\GeminiAIServiceTest.class
+com\smartinterview\ai\MockAIServiceTest.class
+com\smartinterview\interview\InterviewEvolutionControllerTest.class
+com\smartinterview\ai\GeminiInterviewQuestionGenerationTest$Harness.class
+com\smartinterview\interview\InterviewControllerTest.class
+com\smartinterview\readiness\ReadinessControllerTest.class
+com\smartinterview\SmartInterviewApplicationTests.class

@@ -1,0 +1,11 @@
+package com.smartinterview.ai;
+
+public class AIProviderException extends RuntimeException {
+    public AIProviderException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public AIProviderException(String message) {
+        super(message);
+    }
+}
