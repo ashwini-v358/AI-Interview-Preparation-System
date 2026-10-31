@@ -377,6 +377,8 @@ smart-interview-platform/
 │
 └── README.md
 
+```
+
 ---
 
 ## 10. Project Objective
