@@ -1,549 +1,388 @@
-# AI-Based Interview Preparation & Feedback System
+# AI Interview Preparation System
+### AI-Powered Adaptive Interview Practice and Performance Evaluation Platform
 
-An intelligent, full-stack interview preparation platform designed to help students and job seekers prepare for technical interviews through personalized interview sessions, resume and job description analysis, skill-gap identification, answer evaluation, and performance tracking.
+An intelligent, full-stack interview preparation platform designed to help candidates prepare for technical interviews through personalized interview simulations, resume analysis, job description analysis, and AI-driven answer evaluation.
 
-The application provides a structured interview preparation experience by analyzing a candidate's technical profile, identifying skills relevant to a target job role, generating contextual interview questions, evaluating submitted answers, and presenting actionable feedback to improve interview performance.
+The system analyzes a candidate's resume and target job description to identify relevant skills, evaluate skill gaps, and generate contextual interview questions. It also supports adaptive interview sessions, speech-to-text answer input, detailed performance evaluation, and personalized preparation recommendations.
 
----
-
-## 1. Project Overview
-
-Traditional interview preparation often involves practicing generic questions without understanding whether the questions match a candidate's actual skills, projects, or target job requirements.
-
-This project addresses that problem by providing a personalized interview preparation workflow.
-
-Candidates can upload their resumes and target job descriptions, identify missing technical skills, participate in structured interview sessions, submit answers, and receive performance feedback.
-
-The system maintains interview history and performance reports so candidates can review their progress and identify areas that require further improvement.
-
-### Key Objectives
-
-- Automate the initial analysis of candidate resumes and job descriptions.
-- Identify technical skill gaps by comparing candidate skills against job requirements.
-- Provide personalized technical interview preparation.
-- Evaluate interview answers using structured evaluation criteria.
-- Generate performance summaries and actionable improvement suggestions.
-- Maintain interview history and track candidate preparation progress.
+Built using **Java, Spring Boot, React, TypeScript, MySQL, and Google Gemini API**, the platform combines structured backend processing with AI-powered analysis to deliver a personalized interview preparation experience.
 
 ---
 
-## 2. Key Features and Implementation
+## 1. Key Features
 
-### 2.1 User Authentication and Authorization
+### Authentication and User Management
+- User registration and login.
+- JWT-based authentication and authorization.
+- Protected application routes.
+- User-specific interview and document management.
 
-Implemented a user authentication module using Spring Boot and JWT-based authentication.
+### Resume Analysis
+- Upload resumes in PDF format.
+- Extract resume text using Apache PDFBox.
+- Analyze extracted information using AI.
+- Identify technical skills, experience, education, and professional domains.
+- Store resume analysis results for subsequent interview preparation.
 
-**Implementation details:**
-- Candidate registration and login.
-- User credential validation.
-- JWT token generation after successful authentication.
-- Token-based authentication for protected API endpoints.
-- Retrieval of authenticated user information.
-- User-specific access to resumes, interviews, and preparation records.
+### Job Description Analysis
+- Submit job descriptions for analysis.
+- Extract required and preferred skills.
+- Identify job roles, experience requirements, and relevant technical domains.
+- Generate structured job requirement information.
 
-This ensures that application resources are accessed through authenticated requests.
+### Skill Gap Analysis
+- Compare candidate skills extracted from the resume against job requirements.
+- Categorize skills into:
+  - Matched Skills
+  - Partially Matched Skills
+  - Missing Skills
+- Calculate an overall skill match percentage.
+- Generate recommendations to improve missing or insufficiently demonstrated skills.
 
-### 2.2 Resume Upload and Analysis
+### AI-Powered Interview Simulation
+- Generate personalized technical interview questions.
+- Use resume information, target job role, job requirements, and interview context.
+- Generate questions with expected key points and supporting evidence.
+- Support adaptive interview sessions based on candidate responses.
+- Maintain interview progress and question-answer history.
 
-Implemented a resume management module that allows candidates to upload their resumes in PDF format.
+### Voice-Based Answer Input
+- Support microphone-based answer input.
+- Convert spoken responses into text using browser speech recognition.
+- Display transcribed responses for interview submission.
+- Support typed answers as an alternative.
 
-**Implementation details:**
-- Resume PDF upload through the React frontend.
-- Backend processing of uploaded resume information.
-- Extraction and organization of candidate skill information.
-- Storage of resume analysis results.
-- Association of uploaded resumes with the authenticated candidate.
-- Retrieval of previously uploaded resume information.
+### AI Answer Evaluation
+- Evaluate submitted answers against interview questions and expected key points.
+- Generate structured feedback.
+- Assess answer quality, technical correctness, completeness, and clarity.
+- Identify strengths and areas requiring improvement.
 
-The extracted candidate information is used as an input for subsequent skill-gap analysis and interview preparation.
-
-### 2.3 Job Description Analysis
-
-Implemented a job description management module to understand the technical requirements of a target position.
-
-**Implementation details:**
-- Upload job descriptions in PDF format.
-- Process job-related information.
-- Identify technical skills and role requirements.
-- Store job description analysis results.
-- Associate job descriptions with the candidate's preparation workflow.
-
-This enables candidates to prepare according to the requirements of a specific job opportunity rather than relying exclusively on generic interview questions.
-
-### 2.4 Skill Gap Identification
-
-Developed a skill comparison mechanism to identify differences between the candidate's existing technical skills and the skills required by the target job description.
-
-**Implementation details:**
-- Retrieve candidate skills from resume analysis.
-- Identify required skills from job description analysis.
-- Compare existing and required skills using a deterministic skill-matching mechanism.
-- Identify missing or unmatched skills.
-- Generate skill-gap information for preparation planning.
-
-**Example:**
-
-| Candidate Skills | Job Requirements | Result |
-|---|---|---|
-| Java | Java | Matched |
-| SQL | SQL | Matched |
-| React | React | Matched |
-| Java | Spring Boot | Missing |
-| SQL | REST APIs | Missing |
-
-The comparison results help candidates understand which technical areas require additional preparation.
-
-### 2.5 Personalized Interview Question Generation
-
-Implemented an interview preparation workflow that uses candidate and job-related information to organize interview sessions.
-
-**Question-generation context includes:**
-- Candidate resume information.
-- Technical skills.
-- Academic and personal projects.
-- Target job role.
-- Job description requirements.
-- Previous interview answers, where available.
-
-The objective is to make interview preparation more relevant to the candidate's background and target position.
-
-The interview workflow manages question presentation, answer submission, and progression between questions.
-
-### 2.6 Interview Answer Submission and Evaluation
-
-Developed an answer submission and evaluation workflow to assess candidate responses.
-
-**Implementation details:**
-- Capture candidate answers through the interview interface.
-- Submit answers to the backend through REST APIs.
-- Associate answers with their respective interview questions.
-- Process submitted answers using the configured evaluation service.
-- Generate structured feedback and evaluation results.
-- Store evaluation information for subsequent reporting.
-
-The evaluation framework considers three major dimensions:
-
-**Technical Accuracy:** Measures whether the response correctly addresses the technical question.
-
-**Completeness:** Evaluates whether the candidate has covered the important concepts required in the answer.
-
-**Clarity:** Assesses how clearly and effectively the answer communicates the underlying concept.
-
-The application supports a mock evaluation fallback for development and testing when an external AI evaluation service is not configured.
-
-### 2.7 Interview Progression and Session Management
-
-Implemented interview session management to maintain the state of an interview throughout its lifecycle.
-
-**Implementation details:**
-- Create and initialize interview sessions.
-- Retrieve questions associated with an interview.
-- Submit answers for individual questions.
-- Maintain interview progression.
-- Track completed and pending questions.
-- Complete interview sessions.
+### Interview Reports and Performance Analysis
+- Generate interview performance reports.
+- Store interview evaluations and reports.
 - Retrieve previous interview sessions.
+- Track interview readiness and performance-related information.
 
-This provides a structured interview experience rather than treating each question as an independent operation.
-
-### 2.8 Performance Evaluation and Reports
-
-Implemented a performance reporting module to summarize interview results.
-
-**Report information includes:**
-- Overall interview performance.
-- Technical accuracy score.
-- Answer completeness score.
-- Answer clarity score.
-- Identified strengths.
-- Areas requiring improvement.
-- Suggestions for further preparation.
-
-Evaluation results are maintained so candidates can revisit previous interviews and understand their performance over time.
-
-### 2.9 Interview History and Dashboard
-
-Developed a dashboard to provide candidates with a centralized view of their interview preparation activities.
-
-**Dashboard capabilities:**
-- View preparation-related information.
-- Access resume and job description records.
-- View interview activity.
-- Retrieve interview history.
-- Review performance summaries.
-- Navigate between preparation modules.
-
-### 2.10 Preparation Plan Management
-
-Implemented a preparation plan module that uses skill-gap analysis results to provide structured preparation recommendations.
-
-**Implementation details:**
-- Generate preparation plans based on available skill-gap analysis.
-- Organize preparation recommendations around identified technical gaps.
-- Estimate preparation effort.
-- Retrieve generated preparation plans.
-- Maintain generated plan records.
-
-Preparation plan generation depends on the availability of a completed skill-gap analysis.
+### Personalized Preparation Plan
+- Generate preparation recommendations based on identified skill gaps.
+- Organize improvement areas into structured preparation plans.
+- Retrieve previously generated preparation plans.
 
 ---
 
-## 3. Technology Stack
+## 2. Technology Stack
 
-### Backend Technologies
-
-| Technology | Purpose |
+| Layer | Technologies |
 |---|---|
-| Java 21 | Core application programming language |
-| Spring Boot 3.3.4 | Backend application development |
-| Spring Web | REST API development |
-| Spring Data JPA | Database interaction and persistence |
-| Hibernate | Object-relational mapping |
-| Spring Security | Authentication and endpoint security |
-| JWT | Token-based authentication |
-| Maven | Dependency management and build automation |
-
-### Frontend Technologies
-
-| Technology | Purpose |
-|---|---|
-| React.js | User interface development |
-| JavaScript | Frontend application logic |
-| Vite | Frontend development and build tool |
-| CSS | Application styling |
-| REST API Integration | Communication with the backend |
-
-### Database Technologies
-
-| Technology | Purpose |
-|---|---|
-| H2 Database | Local development and testing |
-| MySQL | Persistent database configuration |
-| Spring Data JPA | Data access and repository operations |
-| Hibernate | Entity mapping and database operations |
-| Flyway | Database schema migration for MySQL configuration |
-
-### AI and Evaluation
-
-- AI-assisted interview preparation architecture.
-- Context-based interview question generation.
-- Structured answer evaluation.
-- Deterministic evaluation fallback for local development and testing.
-- External AI service integration where configured.
+| Frontend | React 19, TypeScript |
+| UI Framework | Bootstrap 5 |
+| Backend | Java 21, Spring Boot 3.3.4 |
+| Backend Architecture | Spring MVC, REST APIs |
+| ORM | Hibernate, Spring Data JPA |
+| Database | MySQL, H2 |
+| Database Migration | Flyway |
+| Authentication | Spring Security, JWT |
+| AI Integration | Google Gemini API |
+| AI Fallback | Custom MockAIService |
+| PDF Processing | Apache PDFBox |
+| API Documentation | Swagger / OpenAPI |
+| HTTP Client | Axios |
+| Routing | React Router |
+| Data Fetching | TanStack React Query |
+| Speech Recognition | Web Speech API |
+| Build Tools | Maven, Vite |
 
 ---
 
-## 4. System Architecture
+## 3. System Architecture
 
-The application follows a layered full-stack architecture that separates user interface operations, business logic, data persistence, and external service integration.
+The application follows a layered full-stack architecture.
 
-### Architecture Overview
+```mermaid
+flowchart TB
+    U["Candidate"]
 
-```text
-             CANDIDATE
-                 |
-                 v
-       REACT.JS FRONTEND
-                 |
-                 | HTTP / REST APIs
-                 v
-       SPRING BOOT BACKEND
-                 |
-        +--------+---------+
-        |        |         |
-        v        v         v
-    CONTROLLER  SERVICE  SECURITY
-        |        |         |
-        |        v         |
-        |    BUSINESS      |
-        |     LOGIC        |
-        |        |         |
-        +--------+---------+
-                 |
-                 v
-        SPRING DATA JPA
-                 |
-                 v
-          HIBERNATE ORM
-                 |
-                 v
-        +----------------+
-        | DATABASE LAYER |
-        |                |
-        | H2 / MySQL     |
-        +----------------+
-                 |
-                 v
-       PERSISTENT RECORDS
+    subgraph FRONTEND["FRONTEND - React + TypeScript"]
+        UI["User Interface"]
+        AUTH["Authentication"]
+        DOC["Resume & JD Upload"]
+        INTERVIEW["Interview Simulation"]
+        RESULTS["Reports & Preparation"]
+    end
+
+    subgraph BACKEND["BACKEND - Spring Boot"]
+        API["REST Controllers"]
+        SEC["Spring Security + JWT"]
+        SERVICE["Business Services"]
+        ANALYSIS["Resume / JD / Skill Gap Analysis"]
+        ENGINE["Interview & Evaluation Engine"]
+        AI["AI Service Layer"]
+    end
+
+    subgraph AI_LAYER["AI PROCESSING"]
+        GEMINI["Google Gemini API"]
+        MOCK["Mock AI Service"]
+        FALLBACK["Automatic Fallback"]
+    end
+
+    subgraph DATA["DATA PERSISTENCE"]
+        JPA["Spring Data JPA / Hibernate"]
+        DB[("MySQL / H2")]
+    end
+
+    U --> UI
+    UI --> AUTH
+    UI --> DOC
+    UI --> INTERVIEW
+    UI --> RESULTS
+
+    AUTH --> API
+    DOC --> API
+    INTERVIEW --> API
+    RESULTS --> API
+
+    API --> SEC
+    SEC --> SERVICE
+
+    SERVICE --> ANALYSIS
+    SERVICE --> ENGINE
+    ANALYSIS --> AI
+    ENGINE --> AI
+
+    AI --> GEMINI
+    GEMINI -. "On failure" .-> FALLBACK
+    FALLBACK --> MOCK
+
+    SERVICE --> JPA
+    JPA --> DB
 ```
 
-### Frontend Layer
+---
 
-The React application provides the user interface for:
-- Registration and login.
-- Resume and job description uploads.
-- Skill-gap analysis.
-- Interview configuration and participation.
-- Answer submission.
-- Performance reports.
-- Interview history and dashboard navigation.
+## 4. Application Workflow
 
-### Controller Layer
+The platform follows a structured workflow to transform candidate documents and interview responses into personalized preparation recommendations.
 
-Spring Boot controllers expose REST endpoints and receive requests from the frontend.
+### Step 1: User Authentication
+- Candidate registers or logs into the application.
+- Spring Security validates authentication.
+- JWT tokens are used to authorize subsequent API requests.
 
-They handle:
-- Request validation.
-- Authentication-related requests.
-- File upload requests.
-- Interview operations.
-- Answer submissions.
-- Report and history retrieval.
+### Step 2: Resume Processing
+- Candidate uploads a PDF resume.
+- The backend validates the uploaded file.
+- Apache PDFBox extracts the textual content.
+- The AI service analyzes the extracted information.
+- Structured resume details and skills are persisted.
 
-### Service Layer
+### Step 3: Job Description Processing
+- Candidate submits a target job description.
+- The backend processes its textual content.
+- The AI service extracts required skills, preferred skills, role information, and experience requirements.
+- The analysis results are stored.
 
-The service layer contains the application's business logic.
+### Step 4: Skill Gap Identification
+- The candidate's extracted skills are compared with the job's required skills.
+- Skills are classified as matched, partially matched, or missing.
+- A skill match percentage is calculated.
+- Recommendations are generated for improvement.
 
-It handles:
-- Resume and job description processing.
-- Skill comparison.
-- Interview session management.
-- Question and answer processing.
-- Evaluation operations.
-- Report generation.
-- Preparation plan management.
+### Step 5: Interview Preparation
+- The candidate initiates an interview session.
+- The system prepares interview context using available resume, role, job description, and previous interview information.
+- AI generates relevant questions with expected key points.
+- Adaptive interview logic determines subsequent question selection.
 
-### Repository Layer
+### Step 6: Answer Submission and Evaluation
+- The candidate submits a typed or transcribed answer.
+- The backend retrieves the corresponding interview question and context.
+- The AI service evaluates the response.
+- Feedback and evaluation details are persisted.
 
-Spring Data JPA repositories provide database access operations.
+### Step 7: Interview Reporting
+- Interview evaluation information is used to generate a performance report.
+- The candidate can review feedback, strengths, and improvement areas.
+- Interview history and reports can be retrieved.
 
-They are responsible for storing and retrieving application data through entity-based persistence.
-
-### Database Layer
-
-The application uses H2 for local development and provides a MySQL configuration for persistent storage.
-
-Flyway migrations are available for managing the MySQL database schema.
+### Step 8: Preparation Recommendations
+- The system uses skill-gap and readiness information to generate personalized preparation recommendations.
+- The candidate can access the generated preparation plan.
 
 ---
 
-## 5. Application Workflow
+## 5. Backend Architecture
 
-The complete application workflow is organized into the following stages.
+The backend follows a layered architecture to separate API handling, business logic, data persistence, and AI integration.
 
-### Stage 1: Candidate Registration and Login
-
-1. Candidate creates an account.
-2. Backend validates registration information.
-3. User information is stored in the database.
-4. Candidate logs in using registered credentials.
-5. Backend issues a JWT token after successful authentication.
-6. Authenticated requests access protected application features.
-
-### Stage 2: Resume and Job Description Upload
-
-1. Candidate uploads a resume PDF.
-2. Backend processes the resume information.
-3. Candidate uploads a target job description PDF.
-4. Backend processes the job requirements.
-5. Analysis results are stored and associated with the candidate.
-
-### Stage 3: Skill Gap Analysis
-
-1. Retrieve extracted candidate skills.
-2. Retrieve required job-related skills.
-3. Compare both skill sets.
-4. Identify matched and missing skills.
-5. Store skill-gap analysis results.
-6. Make the results available for preparation planning.
-
-### Stage 4: Interview Preparation
-
-1. Candidate selects the interview preparation workflow.
-2. The system uses available resume, project, role, and job-related context.
-3. Interview questions are prepared.
-4. Candidate begins the interview session.
-5. Questions are presented through the frontend.
-
-### Stage 5: Answer Submission and Evaluation
-
-1. Candidate submits an answer.
-2. React sends the answer to a Spring Boot REST endpoint.
-3. Backend validates the interview request.
-4. The configured evaluation mechanism processes the answer.
-5. Evaluation criteria are calculated or generated.
-6. Feedback is stored against the corresponding interview question.
-
-### Stage 6: Interview Completion and Reporting
-
-1. Candidate completes the interview questions.
-2. Backend updates the interview completion status.
-3. Evaluation information is consolidated.
-4. Performance report is generated.
-5. Candidate can access the report and previous interview history.
-
-### Stage 7: Preparation and Improvement
-
-1. Candidate reviews performance results.
-2. Identifies technical strengths and weaknesses.
-3. Reviews missing skills from the skill-gap analysis.
-4. Uses preparation recommendations to focus on improvement areas.
-5. Repeats interview practice to evaluate progress.
-
----
-
-## 6. Database Design
-
-The backend uses JPA entities and repositories to manage application data.
-
-The database schema is organized around the following functional entities:
-
-| Entity / Data Group | Responsibility |
+| Layer | Responsibility |
 |---|---|
-| Users | Candidate account information |
-| Resume Analyses | Uploaded resume and analysis records |
-| Job Description Analyses | Uploaded job descriptions and analysis records |
-| Skills and Skill Gaps | Candidate skills and missing skill information |
-| Interviews | Interview session information |
-| Evaluations | Answer-level evaluation records |
-| Reports | Interview performance summaries |
-| Preparation Plans | Skill-based preparation recommendations |
-| Audit Logs | Application activity records |
-| Notifications | Notification-related information |
+| Controller | Handles HTTP requests and API responses |
+| Service | Implements application business logic |
+| Repository | Performs database operations using Spring Data JPA |
+| Entity | Represents persistent database objects |
+| DTO | Transfers structured request and response data |
+| Security | Handles JWT authentication and authorization |
+| AI | Integrates Gemini and deterministic mock AI services |
+| Exception | Handles application errors and API exceptions |
 
-The data model supports relationships between candidates, uploaded documents, interview sessions, evaluations, and performance reports.
+### Important Backend Modules
 
-The application uses Hibernate for entity-to-table mapping and Spring Data JPA for persistence operations.
-
----
-
-## 7. REST API Architecture
-
-The frontend and backend communicate through REST APIs using HTTP requests and JSON responses.
-
-The backend exposes APIs for the following functional modules:
-
-| API Module | Operations |
-|---|---|
-| Authentication | Registration, login, authenticated user details |
-| Resume | Upload resume, retrieve candidate resume |
-| Job Description | Upload and retrieve job description analysis |
-| Skill Analysis | Identify and retrieve skill gaps |
-| Dashboard | Retrieve candidate dashboard information |
-| Interview | Create, configure and manage interview sessions |
-| Answers | Submit and retrieve interview answers |
-| Evaluation | Process answers and retrieve feedback |
-| Reports | Generate and retrieve performance summaries |
-| Preparation Plans | Generate and retrieve preparation plans |
-| Interview History | Retrieve previous interview sessions |
-
-**API documentation:** Swagger UI is available at:
-
-`http://localhost:8080/swagger-ui/index.html`
-
-**Backend health endpoint:**
-
-`http://localhost:8080/api/v1/health`
+- `auth` – Registration, login, and user authentication.
+- `resume` – Resume upload, extraction, and analysis.
+- `jd` – Job description processing and analysis.
+- `skillgap` – Candidate skill comparison and gap identification.
+- `interview` – Interview sessions, question generation, and answer submission.
+- `preparation` – Personalized preparation plan generation.
+- `readiness` – Interview readiness information and strategy.
+- `ai` – AI provider abstraction, Gemini integration, and fallback handling.
+- `security` – JWT authentication and authorization.
 
 ---
 
-## 8. Security Implementation
+## 6. AI Integration and Fallback Mechanism
 
-Security is handled through Spring Security and JWT-based authentication.
+The application uses a dedicated AI service abstraction to separate AI operations from the core business logic.
 
-The implementation includes:
+**Google Gemini Integration**
 
-- User registration and authentication.
-- JWT token generation and validation.
-- Protected backend endpoints.
-- Authenticated access to application features.
-- Candidate-specific resource ownership checks.
-- Controlled access to interview and preparation records.
+The Gemini API is used for:
+- Resume information extraction.
+- Job description analysis.
+- Contextual interview question generation.
+- Candidate answer evaluation.
+- Interview report generation.
+- Readiness strategy generation.
 
-This helps protect candidate information and prevents unauthorized access to user-specific resources.
+The backend sends relevant contextual information to Gemini through HTTP requests and processes structured JSON responses into application-specific Java objects.
 
----
+**AI Provider Architecture**
 
-## 9. Development and Database Configuration
+The system supports two AI providers:
 
-### Local Development
+1. `GeminiAIService` – Performs AI-powered processing using the Google Gemini API.
+2. `MockAIService` – Provides deterministic responses for local development and testing.
 
-The default local development configuration uses:
+`FallbackAIService` acts as a provider wrapper. When Gemini processing fails and fallback is enabled, the system automatically uses the mock provider.
 
-- Java 21.
-- Spring Boot.
-- H2 in-memory database.
-- React.js with Vite.
-- REST API communication.
-
-### MySQL Configuration
-
-A separate MySQL profile is provided for persistent database storage.
-
-It includes:
-- MySQL database connectivity.
-- Hibernate schema validation.
-- Flyway-based schema migrations.
-- Persistent storage configuration.
-
-The local H2 database is in-memory, so its data is reset when the backend application restarts.
+This approach improves application resilience and allows interview workflows to continue even when the external AI provider is unavailable.
 
 ---
 
-## 10. Testing and Validation
+## 7. Database Design
 
-The project includes backend automated tests covering important application operations and business workflows.
+The application uses Spring Data JPA and Hibernate for object-relational mapping.
 
-Validation activities include:
+MySQL is supported for persistent database storage, while H2 provides an in-memory database for local development.
 
-- Backend Maven build and test execution.
-- Authentication and protected endpoint testing.
-- Resume and job description upload workflows.
-- Interview session management.
-- Answer submission and progression.
-- Interview completion and history retrieval.
-- Preparation plan generation and retrieval.
-- Frontend production build validation.
+### Major Database Entities
 
-The application is developed with a focus on maintaining reliable API communication and consistent interview workflow management.
+- User
+- Resume
+- ResumeAnalysis
+- JobDescription
+- JobDescriptionAnalysis
+- Skill
+- CandidateSkill
+- JobRequiredSkill
+- SkillGapAnalysis
+- InterviewSession
+- InterviewQuestion
+- CandidateAnswer
+- AnswerEvaluation
+- InterviewReport
+- PreparationPlan
+- AuditLog
+- Notification
+
+### Database Management
+- Hibernate manages entity-to-table mapping.
+- Spring Data JPA provides repository-based database operations.
+- Flyway manages version-controlled database migrations in the MySQL profile.
+- H2 supports lightweight local development.
 
 ---
 
-## 11. Project Structure
+## 8. API Endpoints
+
+The backend exposes REST APIs under the `/api/v1` base path.
+
+| Module | Method | Endpoint | Purpose |
+|---|---|---|---|
+| Authentication | POST | `/auth/register` | Register candidate |
+| Authentication | POST | `/auth/login` | Authenticate candidate |
+| Authentication | GET | `/auth/me` | Retrieve current user |
+| Health | GET | `/health` | Check backend health |
+| Resume | POST | `/resume/upload` | Upload resume PDF |
+| Resume | GET | `/resume/my` | Retrieve candidate resumes |
+| Job Description | POST | `/jd/upload` | Submit job description |
+| Job Description | GET | `/jd/my` | Retrieve job descriptions |
+| Skill Gap | POST | `/skill-gap/analyze` | Analyze skill gaps |
+| Skill Gap | GET | `/skill-gap/latest` | Retrieve latest analysis |
+| Interview | POST | `/interview/start` | Start interview |
+| Interview | POST | `/interview/adaptive/start` | Start adaptive interview |
+| Interview | GET | `/interview/my` | Retrieve interview history |
+| Interview | POST | `/interview/{id}/answer/{questionId}` | Submit answer |
+| Interview | POST | `/interview/{id}/report` | Generate interview report |
+| Interview | GET | `/interview/{id}/report` | Retrieve interview report |
+| Preparation | GET | `/preparation-plan` | Retrieve preparation plan |
+| Preparation | POST | `/preparation-plan/generate` | Generate preparation plan |
+| Readiness | GET | `/readiness` | Retrieve readiness information |
+| Readiness | POST | `/readiness/refresh` | Refresh readiness information |
+
+For complete request and response schemas, use the Swagger documentation.
+
+---
+
+## 9. Project Structure
 
 ```text
-AI-Interview-Preparation-System/
-|
-+-- backend/
-|   |
-|   +-- src/
-|   |   +-- main/
-|   |   |   +-- java/
-|   |   |   |   +-- application/
-|   |   |   |       +-- config/
-|   |   |   |       +-- controller/
-|   |   |   |       +-- service/
-|   |   |   |       +-- repository/
-|   |   |   |       +-- entity/
-|   |   |   |       +-- dto/
-|   |   |   |       +-- security/
-|   |   |   |
-|   |   |   +-- resources/
-|   |   |
-|   |   +-- test/
-|   |
-|   +-- pom.xml/
-|
-+-- frontend/
-|   |
-|   +-- src/
-|   |   +-- components/
-|   |   +-- pages/
-|   |   +-- services/
-|   |   +-- context/
-|   |   +-- assets/
-|   |
-|   +-- public/
-|   +-- package.json
-|
-+-- README.md
+smart-interview-platform/
+│
+├── backend/
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/com/smartinterview/
+│   │   │   │   ├── ai/
+│   │   │   │   ├── config/
+│   │   │   │   ├── controller/
+│   │   │   │   ├── dto/
+│   │   │   │   ├── entity/
+│   │   │   │   ├── exception/
+│   │   │   │   ├── interview/
+│   │   │   │   ├── jd/
+│   │   │   │   ├── preparation/
+│   │   │   │   ├── readiness/
+│   │   │   │   ├── repository/
+│   │   │   │   ├── security/
+│   │   │   │   ├── service/
+│   │   │   │   └── skillgap/
+│   │   │   └── resources/
+│   │   │       ├── db/migration/
+│   │   │       └── application.yml
+│   │   └── test/
+│   └── pom.xml
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   ├── types/
+│   │   ├── App.tsx
+│   │   └── main.tsx
+│   ├── package.json
+│   └── vite.config.ts
+│
+└── README.md
+
+---
+
+## 10. Project Objective
+
+The objective of this project is to make interview preparation more personalized, structured, and measurable.
+
+By combining resume analysis, job requirement matching, adaptive interview simulations, speech-based answer input, and AI-generated feedback, the platform helps candidates understand their technical strengths, identify skill gaps, and improve their interview readiness.
+
+**Built to make interview preparation smarter, more adaptive, and more effective.**
