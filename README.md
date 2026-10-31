@@ -385,4 +385,6 @@ The objective of this project is to make interview preparation more personalized
 
 By combining resume analysis, job requirement matching, adaptive interview simulations, speech-based answer input, and AI-generated feedback, the platform helps candidates understand their technical strengths, identify skill gaps, and improve their interview readiness.
 
-**Built to make interview preparation smarter, more adaptive, and more effective.**
+<p align="center">
+  <strong>Built to make interview preparation smarter, more adaptive, and more effective.</strong>
+</p>
